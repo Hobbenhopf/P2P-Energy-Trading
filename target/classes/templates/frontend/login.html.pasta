@@ -1,0 +1,30 @@
+<w:page title="Login">
+    <div class="row" style="margin-top: 60px">
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6">
+            <w:pageHeader>Login</w:pageHeader>
+            <w:editForm url="/login">
+                <div class="row">
+
+                    <w:textfield name="user" value="" label="Username" span="12"/>
+                    <div class="col-md-12">
+
+                        <label for="password"><span>Password</span></label>
+                        <input type="password" name="password" id="password" class="form-control input-block-level"/>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 16px">
+                        <a class="btn btn-primary btn-block" onclick="javascript:submit()">Submit login data</a>
+                    </div>
+                </div>
+            </w:editForm>
+        </div>
+    </div>
+
+    <script>
+        function submit() {
+            $("#editForm").submit();
+        }
+    </script>
+</w:page>

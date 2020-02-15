@@ -1,0 +1,36 @@
+<w:page title="Home">
+    <w:pageHeader>Create Offer</w:pageHeader>
+
+    <div class="row">
+        <div class="col-md-6">
+            <w:subHeading>Current Energy</w:subHeading>
+            <div class="row">
+                <w:textfield name="" value="" label="Energy Solar" readonly="true" span="12"/>
+                <w:textfield name="" value="" label="Energy Misc" readonly="true" span="12"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <w:subHeading>Action</w:subHeading>
+
+            <div class="row">
+                <w:singleSelect name="source" label="Source" span="12">
+                    <option value="solar">Solar</option>
+                    <option value="misc">Misc</option>
+                </w:singleSelect>
+
+                <w:textfield name="quantity" value="" label="Quantity" span="12"/>
+
+                <div class="col-md-12" style="margin-top: 16px">
+                    <a class="btn btn-primary btn-block" onclick="javascript:submit()">Create Offer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function submit() {
+            // TODO json call to create the offer
+        }
+
+    </script>
+
+</w:page>

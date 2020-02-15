@@ -1,0 +1,43 @@
+<w:page title="Home">
+    <w:pageHeader>Home</w:pageHeader>
+
+    <p style="margin-bottom: 32px">
+        Welcome. This is the starting point of trading with renewable energy.
+    </p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <w:subHeading>Userdata</w:subHeading>
+            <div class="row">
+                <w:textfield name="userId" value="" label="User Id" readonly="true" span="12"/>
+                <w:textfield name="firstname" value="" label="Firstname" span="12"/>
+                <w:textfield name="lastname" value="" label="Lastname" span="12"/>
+
+                <div class="col-md-12" style="margin-top: 16px">
+                    <a class="btn btn-primary btn-block" onclick="javascript:submit()">Update</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <w:subHeading>Energy and Balance</w:subHeading>
+
+            <div class="row">
+                <w:textfield name="" value="" label="Energy Solar" readonly="true" span="12"/>
+                <w:textfield name="" value="" label="Energy Misc" readonly="true" span="12"/>
+                <w:textfield name="" value="" label="Balance" readonly="true" span="12"/>
+                <w:textfield name="" value="" label="Open Offer" readonly="true" span="12"/>
+            </div>
+        </div>
+    </div>
+    <script>
+        function submit() {
+            // TODO json call to update the user data
+        }
+
+        function fetchUserDataUpdate() {
+            // json call to update the read only data e.g. the current balance // will be called every 30 seconds (polling)
+        }
+
+    </script>
+
+</w:page>
