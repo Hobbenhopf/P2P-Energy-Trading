@@ -1,14 +1,10 @@
-<i:arg type="Page" name="offers"/>
+<i:arg type="List" name="offers"/>
 <w:page title="List Offers">
     <w:pageHeader>List Offers</w:pageHeader>
-
-
-    <w:subHeading>Open Offers</w:subHeading>
 
     <w:table data="@offers">
         <thead>
         <tr>
-
             <th>OfferId</th>
             <th>Source</th>
             <th>Quantity</th>
@@ -17,15 +13,20 @@
         </tr>
         </thead>
         <tbody>
-        <!-- For loop over page -->
+
+        <i:for type="model.TradeOffer" var="offer" items="@offers">
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><a class="link" href="/accept-offer/$offerId">Angebot annehmen</a></td>
+                <td>@offer.getId()</td>
+                <td>@offer.getSource()</td>
+                <td>@toUserString(offer.getQuantity())</td>
+                <td>@toUserString(offer.getPrice())</td>
+                <td>
+                    <i:if test="@user.getCurrentUser().getUserId() != offer.getSeller().getUser().getUserId()">
+                        <a class="link" href="/accept-offer/@offer.getId()">Angebot annehmen</a>
+                    </i:if>
+                </td>
             </tr>
+        </i:for>
         </tbody>
     </w:table>
-    <w:pagination page="@offers" baseUrl="@call.getRequestedURI()"/>
 </w:page>

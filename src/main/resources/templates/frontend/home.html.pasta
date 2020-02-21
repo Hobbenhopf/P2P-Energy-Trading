@@ -1,3 +1,6 @@
+<i:arg type="model.User" name="currentUser"/>
+<i:arg type="model.UserData" name="currentUserData"/>
+
 <w:page title="Home">
     <w:pageHeader>Home</w:pageHeader>
 
@@ -5,13 +8,21 @@
         Welcome. This is the starting point of trading with renewable energy.
     </p>
 
+    <a href="/balance" class="link">Balance</a>
+    <a href="/create-offer" class="link">Create new Offer</a>
+    <a href="/list-offers" class="link">List Offers</a>
+    <a href="/logout" class="link">Logout</a>
+
     <div class="row">
         <div class="col-md-6">
             <w:subHeading>Userdata</w:subHeading>
             <div class="row">
-                <w:textfield name="userId" value="" label="User Id" readonly="true" span="12"/>
-                <w:textfield name="firstname" value="" label="Firstname" span="12"/>
-                <w:textfield name="lastname" value="" label="Lastname" span="12"/>
+                <w:textfield name="userId" id="userId" value="@currentUser.getUserId()" label="User Id" readonly="true"
+                             span="12"/>
+                <w:textfield name="firstname" id="firstname" value="@currentUser.getFirstname()" label="Firstname"
+                             span="12"/>
+                <w:textfield name="lastname" id="lastname" value="@currentUser.getLastname()" label="Lastname"
+                             span="12"/>
 
                 <div class="col-md-12" style="margin-top: 16px">
                     <a class="btn btn-primary btn-block" onclick="javascript:submit()">Update</a>
@@ -22,22 +33,45 @@
             <w:subHeading>Energy and Balance</w:subHeading>
 
             <div class="row">
-                <w:textfield name="" value="" label="Energy Solar" readonly="true" span="12"/>
-                <w:textfield name="" value="" label="Energy Misc" readonly="true" span="12"/>
-                <w:textfield name="" value="" label="Balance" readonly="true" span="12"/>
-                <w:textfield name="" value="" label="Open Offer" readonly="true" span="12"/>
+                <w:textfield name="" value="@toUserString(currentUserData.getQuantitySolar())" label="Energy Solar"
+                             readonly="true" span="12"/>
+                <w:textfield name="" value="@toUserString(currentUserData.getQuantityMisc())" label="Energy Misc"
+                             readonly="true" span="12"/>
+                <w:textfield name="" value="@toUserString(currentUserData.getBalance())" label="Balance" readonly="true"
+                             span="12"/>
+
             </div>
         </div>
     </div>
     <script>
         function submit() {
-            // TODO json call to update the user data
+            var body = {
+                userId: $("#userId").val(),
+                firstname: $("#firstname").val(),
+                lastname: $("#lastname").val()
+            };
+            clearMessages();
+            fetch ("/update-user-data", getPostRequest(body)).then(response => addInfo('The userdata are up to date'));
         }
 
         function fetchUserDataUpdate() {
             // json call to update the read only data e.g. the current balance // will be called every 30 seconds (polling)
         }
 
-    </script>
+        function getPostRequest(requestBody) {
+            return {
+                body: JSON.stringify(requestBody),
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                'content-type': 'application/json'
+                },
+                method: 'POST',
+                mode: 'cors',
+                redirect: 'follow',
+                referrer: 'no-referrer'
+            };
+        }
 
+    </script>
 </w:page>

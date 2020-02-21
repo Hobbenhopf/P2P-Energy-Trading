@@ -1,3 +1,5 @@
+<i:arg type="model.UserData" name="currentUserData"/>
+
 <w:page title="Balance">
     <w:pageHeader>Balance</w:pageHeader>
 
@@ -10,24 +12,28 @@
         <div class="col-md-6">
             <w:subHeading>Current State</w:subHeading>
             <div class="row">
-                <w:textfield name="" value="" label="Balance" readonly="true" span="12"/>
+                <w:textfield name="" value="@toUserString(currentUserData.getBalance())" label="Balance" readonly="true"
+                             span="12"/>
             </div>
         </div>
         <div class="col-md-6">
             <w:subHeading>Actions</w:subHeading>
 
-            <div class="row">
-                <w:textfield name="amount" id="amount" value="" label="Amount" span="12" type="number"/>
+            <w:editForm url="/balance">
+                <div class="row">
+                    <w:textfield name="amount" id="amount" value="" label="Amount" span="12" type="number"/>
 
-                <div class="col-md-6" style="margin-top: 16px">
-                    <a class="btn btn-primary btn-block" onclick="javascript:addAmountToBalance()">Add Amount to Balance</a>
+                    <div class="col-md-6" style="margin-top: 16px">
+                        <a class="btn btn-primary btn-block" onclick="javascript:addAmountToBalance()">Add Amount to
+                            Balance</a>
 
+                    </div>
+                    <div class="col-md-6" style="margin-top: 16px">
+                        <a class="btn btn-danger btn-block" onclick="javascript:withdrawAmountFromBalance()">Withdraw
+                            Amount from Balance</a>
+                    </div>
                 </div>
-                <div class="col-md-6" style="margin-top: 16px">
-                    <a class="btn btn-danger btn-block" onclick="javascript:withdrawAmountFromBalance()">Withdraw
-                        Amount from Balance</a>
-                </div>
-            </div>
+            </w:editForm>
         </div>
     </div>
     <script>
@@ -36,7 +42,7 @@
 
             if (amount < 0) {
                 // amount must be positive
-                amount += -1;
+                amount *= -1;
             }
 
             updateBalance(amount);
@@ -47,16 +53,16 @@
 
             if (amount > 0) {
                 // amount must be negative
-                amount += -1;
+                amount *= -1;
             }
 
             updateBalance(amount);
         }
 
         function updateBalance(amount) {
-            // TODO update the balance
+            $("#amount").val(amount);
+            $("#editForm").submit();
         }
-
     </script>
 
 </w:page>
