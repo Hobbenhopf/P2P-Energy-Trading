@@ -1,0 +1,47 @@
+
+namespace de.tbi.prototyp
+
+asset UserData identified by userDataId {
+    o String userDataId
+    o Double  quantitySolar
+    o Double  quantityMisc
+    o Double  balance
+    --> User user
+    --> SmartMeter smartMeter
+}
+
+asset TradeOffer identified by tradeOfferId {
+  o String tradeOfferId
+  o String source
+  o Double quantity
+  o Double price
+  --> UserData seller
+  --> UserData buyer
+}
+
+participant User identified by userId {
+    o String userId 
+    o String firstName
+    o String lastName
+}
+
+participant SmartMeter identified by smartMeterId {
+  o String smartMeterId
+  o String location
+}
+
+transaction GeneratePower {
+  --> UserData userData
+  o Double quantity
+  o String source
+}
+
+transaction ConsumePower {
+  --> UserData userData
+  o Double quantity
+}
+
+transaction AcceptOffer {
+  --> TradeOffer tradeData 
+  --> UserData buyer
+}
